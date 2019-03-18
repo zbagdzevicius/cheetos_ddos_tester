@@ -1,5 +1,5 @@
 from requests import post
-from csvParser import CsvParser
+from convert_csv_to_json import csv_to_json
 from threading import Thread
 from random import choice
 from time import sleep
@@ -7,12 +7,12 @@ from time import sleep
 new_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/new_posts.csv"
 socks_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/socks_posts.py"
 ssl_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/ssl_posts.py"
-new_proxies = CsvParser(new_path).json_data
-socks_proxies = CsvParser(new_path).json_data
-ssl_proxies = CsvParser(new_path).json_data
+new_proxies = csv_to_json(new_path)
+socks_proxies = csv_to_json(new_path)
+ssl_proxies = csv_to_json(new_path)
 
 user_agents_path = "/home/zygis/wordpressPosts/src/spiders/userAgents/user_agents.csv"
-user_agents = CsvParser(user_agents_path).json_data
+user_agents = csv_to_json(user_agents_path)
 
 def run(job_fn, *argv):
     arguments = []
