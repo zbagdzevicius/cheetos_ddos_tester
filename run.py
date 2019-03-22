@@ -1,18 +1,21 @@
 from requests import post
 from convert_csv_to_json import csv_to_json
+from proxyValidator import ProxyValidator
 from threading import Thread
 from random import choice
 from time import sleep
+from scrapperize import crawl_user_agents
+from scrapperize import crawl_proxies
+import json
 
-new_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/new_posts.csv"
-socks_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/socks_posts.py"
-ssl_path = "/home/zygis/wordpressPosts/src/spiders/proxyScrapper/ssl_posts.py"
-new_proxies = csv_to_json(new_path)
-socks_proxies = csv_to_json(new_path)
-ssl_proxies = csv_to_json(new_path)
+proxies_path = "proxies.csv"
+with open(proxies_path) as proxies_file:
+    proxies_file_data = json.loads(proxies_file)
+user_agents = "user_agents.csv"
+with open(proxies_path) as user_agents_file:
+    user_agents_data = json.loads(user_agents_file)
 
-user_agents_path = "/home/zygis/wordpressPosts/src/spiders/userAgents/user_agents.csv"
-user_agents = csv_to_json(user_agents_path)
+print(proxies_file_data)
 
 def run(job_fn, *argv):
     arguments = []
