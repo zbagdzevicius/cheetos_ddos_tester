@@ -22,5 +22,7 @@ class ProxyValidator:
         try:
             session.get('http://www.showmemyip.com/')
             self.validated_proxies.append(proxy)
+            print(f'proxy: {proxy} validated')
         except:
+            print(f'proxy: {proxy} unvalidated')
             pass
