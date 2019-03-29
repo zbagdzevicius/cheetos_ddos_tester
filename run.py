@@ -7,15 +7,16 @@ from time import sleep
 from scrapperize import crawl_user_agents
 from scrapperize import crawl_proxies
 
-# crawl_proxies()
+crawl_proxies()
 
 
 class CheetosVoter:
     def __init__(self, referer, img_id, proxies_file_path, user_agents_file_path):
         self.user_agents = csv_to_json(user_agents_file_path)
         proxies_json = csv_to_json(proxies_file_path)
-        proxies = self.__validated_proxies(proxies_json)
-        print(f"validated proxies:{proxies}")
+        # proxies = self.__validated_proxies(proxies_json)
+        proxies = [proxy["proxy"] for proxy in proxies_json]
+        # print(f"validated proxies:{proxies}")
         self.send_vote(referer, img_id, proxies)
 
     def __validated_proxies(self, proxies):
@@ -40,7 +41,7 @@ class CheetosVoter:
             headers=headers,
             data=data,
             proxies=proxy,
-            timeout=12
+            # timeout=25
         )
         print(response)
 
@@ -58,7 +59,7 @@ class CheetosVoter:
             }
             proxy = {"https": proxy}
             self.run(self.send_request, headers, data, proxy)
-            sleep(3)
+            sleep(0.1)
 
 
 voter = CheetosVoter(
