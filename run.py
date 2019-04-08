@@ -37,35 +37,36 @@ class CheetosVoter:
     @staticmethod
     def send_request(headers, data, proxy):
         response = post(
-            "https://vote.cheetos.ee/upvote.php",
+            "http://vote.cheetos.ee/upvote.php",
             headers=headers,
             data=data,
             proxies=proxy,
-            # timeout=25
+            timeout=100
         )
         print(response)
 
     def send_vote(self, referer, imgId, proxies):
         print("started voting")
-        data = {"imgId": imgId}
+        data = {"imgId": imgId, "voteCount": 1, "captcha" :"03AOLTBLQsA50_a235oe7rAfDvBKxAzrrvVVkc0nGcnN9VnFbm-gwUVcRXWMoD4jGYuAX8Cs8515eXEsPU4jNnFscih_nLtiRr8uSCL6GBl2pdsOU_q9GiX0gZv48iCNpGQ999LotmT19k8AG5gc1y-QWZXYeyWTgowl08bsqMS8oRwrS7yq5d_LivBaBriZlycdmitqKiqCTzBe-LFt9XzMRBwhg14XmmsF5UvaUMIwpU24dMH4V-PstktETevV7ZBcRVeKXtTwzJRVwyYGFKeMCECmmLDXymtdQMkiBdJhlLcngFy-_KDx_6gmr1GHUKxSTvQW8K5Xwo"}
         for proxy in proxies:
             user_agent = choice(self.user_agents)["user_agent"]
             headers = {
                 "accept": "*/*",
                 "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "origin": "https://cheetos.lt",
+                "origin": "https://cheetos.ee",
                 "referer": referer,
                 "User-Agent": user_agent,
             }
-            proxy = {"https": proxy}
+            proxy = {"http": f'http://{proxy}',
+                "https": f'https://{proxy}'}
             self.run(self.send_request, headers, data, proxy)
-            sleep(0.1)
+            sleep(5)
 
 
 voter = CheetosVoter(
-    "https://cheetos.lt/index/galerii/images/librariesprovider3/osalejad/ro%C5%BEyt%C4%97?itemIndex=7",
-    "Rožytė 2",
-    "proxies.csv",
+    "https://cheetos.ee/avaleht/galerii/images/default-source/est/part5fc206ac2e2b479984a959d46b0a005d?itemIndex=12",
+    "Part5",
+    "proxy.csv",
     "user_agents.csv",
 )
 
