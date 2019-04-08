@@ -7,7 +7,7 @@ from time import sleep
 from scrapperize import crawl_user_agents
 from scrapperize import crawl_proxies
 
-crawl_proxies()
+# crawl_proxies()
 
 
 class CheetosVoter:
@@ -59,7 +59,7 @@ class CheetosVoter:
             }
             proxy = {"https": proxy}
             self.run(self.send_request, headers, data, proxy)
-            sleep(0.1)
+            sleep(3)
 
 
 voter = CheetosVoter(
